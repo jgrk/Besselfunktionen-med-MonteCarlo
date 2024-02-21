@@ -8,7 +8,7 @@
 #include <random>
 
 #define _USE_MATH_DEFINES
-#include <cmath>
+
 #include <math.h>
 
 
@@ -18,17 +18,15 @@
 
 //Motsvarar integranden som definiers i Bessel-funktionen
 
-std::complex<double> integr_func(int n, double theta, double r, float pi)
+std::complex<double> integr_func(int n, double theta, double r, double pi)
 {
-
-    std::complex<float> a( cos( n * theta ), -sin( n * theta ) );
-    std::complex<float> b( cos( r * sin(theta) ), sin( r * sin(theta) ) );
+    
+    std::complex<double> a( cos( n * theta ), -sin( n * theta ) );
+    std::complex<double> b( cos( r * sin(theta) ), sin( r * sin(theta) ) );
 
     return (1 / (2 * pi)) * a * b; 
 
 }
-
-//Denna behöver nu integreras från -pi < theta < pi mha montecarlo 
 
 
 int main() {
@@ -44,14 +42,16 @@ int main() {
 
     
     //radie r - polära koordinater
+
+    
     double r;
-    
-    //Graden n av Besselfunktionen
+
     int n;
-    
+
     //integral summor
-    double h = 0.0; 
-    double im_h = 0.0; 
+    double h = 0.0;
+    double im_h = 0.0;
+    
 
     std::complex<double> val;
 
