@@ -18,13 +18,13 @@
 
 //Motsvarar integranden som definiers i Bessel-funktionen
 
-std::complex<double> integr_func(int n, double theta, double r, double pi)
+inline std::complex<double> integr_func(int &n, double &theta, double &r)
 {
     
     std::complex<double> a( cos( n * theta ), -sin( n * theta ) );
     std::complex<double> b( cos( r * sin(theta) ), sin( r * sin(theta) ) );
 
-    return (1 / (2 * pi)) * a * b; 
+    return (1 / (2 * M_PI)) * a * b; 
 
 }
 
