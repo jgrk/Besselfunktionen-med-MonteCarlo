@@ -3,8 +3,6 @@
 #include <iostream>
 #include <vector>
 
-
-#include <complex>
 #include <random>
 
 #define _USE_MATH_DEFINES
@@ -18,13 +16,12 @@
 
 //Motsvarar integranden som definiers i Bessel-funktionen
 
-inline std::complex<double> integr_func(int &n, double &theta, double &r)
+inline double integr_func(int &n, double &theta, double &r)
 {
     
-    std::complex<double> a( cos( n * theta ), -sin( n * theta ) );
-    std::complex<double> b( cos( r * sin(theta) ), sin( r * sin(theta) ) );
+    double re = cos(n * theta) * cos(r * sin(theta)) + sin(n * theta) * sin(r * sin(theta));
 
-    return (1 / (2 * M_PI)) * a * b; 
+    return re; 
 
 }
 
@@ -53,7 +50,7 @@ int main() {
     double im_h = 0.0;
     
 
-    std::complex<double> val;
+    double val;
 
     std::cout << "Approximative Evaluation of the BesselJ-function using the Monte Carlo integration method" << std::endl;
     std::cout << "r = "; 
@@ -62,26 +59,24 @@ int main() {
     std::cin >> n; 
     std::cout << "Running " << n_sims << " simulations.." << std::endl;
 
+   
     
     for (int i = 0; i < n_sims; i++)
     {
 
       
         double rand_num = dis(gen);
+     
+        val = integr_func(n, rand_num, r);
 
-        val = integr_func(n, rand_num, r, M_PI);
-
-        h += real(val);
-        im_h += imag(val);
+        h += val;
 
     }
 
-    h = h * (2.0*M_PI ) / (n_sims);
-    im_h = im_h * (2.0 * M_PI) / (n_sims);
+    h = h  / (n_sims);
+
 
     std::cout << std::endl << "Real part of J" << n << "( " << r << " ) = " << h << std::endl;
-    std::cout << std::endl << "Imaginary part of J" << n << "( " << r << " ) = " << im_h << std::endl;
-
 
     return 0;
 }
